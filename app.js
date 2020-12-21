@@ -11,6 +11,7 @@ list.addEventListener('click', crossTask);
 clearBtn.addEventListener('click', clearTasks);
 
 function addNewTask(e){
+  e.preventDefault();
   if(input.value !== ''){
     const li = document.createElement('li');
     li.className = 'list-item';
@@ -37,7 +38,6 @@ function addNewTask(e){
     alert('Make sure to add a task!');
   }
   input.value = '';
-e.preventDefault();
 }
 
 /*function alertMessage(msg){
@@ -76,17 +76,18 @@ function clearTasks(){
 
  
 function setTaskToLocalStorage(task){
- if(localStorage.getItem('tasks') !== ''){
-    let tasks = localStorage.getItem('tasks');
-    let newTasks = JSON.parse(tasks);
-    newTasks.push(task);
-    let stringifiedTasks = JSON.stringify(newTasks);
-    localStorage.setItem('tasks', stringifiedTasks);
+ if(localStorage.getItem('tasks') === ''){
+  let tasks = [];
+  tasks.push(task);
+  let stringifiedTasks = JSON.stringify(tasks);
+  localStorage.setItem('tasks', stringifiedTasks);
+    
  }else{
-    tasks = [];
-    tasks.push(task);
-    let stringifiedTasks = JSON.stringify(tasks);
-    localStorage.setItem('tasks', stringifiedTasks);
+  tasks = localStorage.getItem('tasks');
+  let newTasks = JSON.parse(tasks);
+  newTasks.push(task);
+  let stringifiedTasks = JSON.stringify(newTasks);
+  localStorage.setItem('tasks', stringifiedTasks); 
  }
 } 
 
