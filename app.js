@@ -29,10 +29,12 @@ function addNewTask(e){
     list.appendChild(li);
 
     clearBtn.style.display = 'block';
+    
+    setTaskToLocalStorage(input.value);
+
   } else {
     alert('Make sure to add a task!');
   }
-  addToLocalStorage(input.value);
   input.value = '';
 e.preventDefault();
 }
@@ -70,16 +72,23 @@ function clearTasks(){
   }
 }
 
-function addToLocalStorage(task){
-  let tasks = [];
-  if(localStorage.getItem('tasks') === ''){
-    const li = document.createElement('li');
-    li.className = 'list-item';
-    li.appendChild(document.createTextNode(task));
-    tasks.push(task);
-    localStorage.setItem('tasks',JSON.stringify(tasks));
-  }
-}
+
  
+function setTaskToLocalStorage(task){
+  let tasks = [];
+  if(localStorage.getItem('tasks') !== ''){
+     tasks = localStorage.getItem(JSON.parse('tasks'));
+     tasks.forEach(function(task){
+      const li = document.createElement('li');
+      li.className = 'list-item';
+      li.appendChild(document.createTextNode(task));
+      list.appendChild(li);
+    })
+    tasks.push(task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+   }
+
+}
+
 
 
