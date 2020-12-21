@@ -30,6 +30,7 @@ function addNewTask(e){
 
     clearBtn.style.display = 'block';
     
+    
     setTaskToLocalStorage(input.value);
 
   } else {
@@ -75,20 +76,20 @@ function clearTasks(){
 
  
 function setTaskToLocalStorage(task){
-  let tasks = [];
-  if(localStorage.getItem('tasks') !== ''){
-     tasks = localStorage.getItem(JSON.parse('tasks'));
-     tasks.forEach(function(task){
-      const li = document.createElement('li');
-      li.className = 'list-item';
-      li.appendChild(document.createTextNode(task));
-      list.appendChild(li);
-    })
+ if(localStorage.getItem('tasks') !== ''){
+    let tasks = localStorage.getItem('tasks');
+    let newTasks = JSON.parse(tasks);
+    newTasks.push(task);
+    let stringifiedTasks = JSON.stringify(newTasks);
+    localStorage.setItem('tasks', stringifiedTasks);
+ }else{
+    tasks = [];
     tasks.push(task);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-   }
+    let stringifiedTasks = JSON.stringify(tasks);
+    localStorage.setItem('tasks', stringifiedTasks);
+ }
+} 
 
-}
 
 
 
