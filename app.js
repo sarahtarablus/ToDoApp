@@ -4,14 +4,10 @@ const list = document.querySelector('.list');
 const clearBtn =  document.getElementById('clear-btn');
 const clearListBtn = document.getElementById('clear-btn-2');
 
-
-
 addBtn.addEventListener('click', addNewTask);
 list.addEventListener('click', removeTask);
 list.addEventListener('click', crossTask);
 clearBtn.addEventListener('click', clearTasks);
-//clearListBtn.addEventListener('click', clearList);
-
 
 function addNewTask(e){
   e.preventDefault();
@@ -31,9 +27,7 @@ function addNewTask(e){
     x.style.cursor = 'pointer';
     li.appendChild(x);
     list.appendChild(li);
-
     clearBtn.style.display = 'block';
-     
     setTaskToLocalStorage(input.value);
   } else {
     alert('Make sure to add a task!');
@@ -51,9 +45,6 @@ function crossTask(e){
   if(e.target.classList.contains('check-box')){
     const li = e.target.parentElement;
     li.style.textDecoration = 'line-through';
-    /*e.target.siblingChild.contains('delete-btn')
-      const x = e.target.siblingChild;
-      x.style.textDecoration = 'none';*/
   }
 }
 
@@ -86,20 +77,14 @@ function getTasksFromLocalStorage(){
    tasks = localStorage.getItem('tasks');
    let newTasks = JSON.parse(tasks);
    newTasks.forEach(function(task){
-    const li = document.createElement('li');
-    li.className = 'localStorage-item';
-    li.style.color = 'rgb(255, 204, 94)';
-    li.appendChild(document.createTextNode(task));
-    const list2 = document.querySelector('.localStorage-list');
-    list2.appendChild(li);
-    document.getElementById('clear-btn-2').style.display = 'block';
+   const li = document.createElement('li');
+   li.className = 'localStorage-item';
+   li.style.color = 'rgb(255, 204, 94)';
+   li.appendChild(document.createTextNode(task));
+   const list2 = document.querySelector('.localStorage-list');
+   list2.appendChild(li); 
   })
  }
 }
 getTasksFromLocalStorage();
-
-
-
-
-
 
